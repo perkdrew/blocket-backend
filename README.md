@@ -16,7 +16,7 @@ docker-compose run app alembic upgrade head
 
 ## GraphQL
 
-For structuring the functionality we would like for our classified ads, the typical CRUD functionality is set up as mutations in GraphQL, it allows us to define schemas that we situate for our queries. To start, we need to populate the database with some data as such:
+For structuring the functionality we would like for our classified ads, the typical CRUD functionality is set up as mutations in GraphQL. It allows us to define schemas that we situate for our queries. To start, we need to populate the database with some data as such:
 
 ```
 mutation CreateNewAdvertisement{ 
