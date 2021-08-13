@@ -6,6 +6,7 @@ from enum import IntEnum
 
 
 class SortEnum(IntEnum):
+    """An enum for the two main types of sorting lists"""
     created_at = 0
     price = 1
 

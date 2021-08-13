@@ -14,9 +14,11 @@ docker-compose run app alembic revision --autogenerate -m "New Migration"
 docker-compose run app alembic upgrade head
 ```
 
+
+
 ## GraphQL
 
-For structuring the functionality we would like for our classified ads, the typical CRUD functionality is set up as mutations in GraphQL, it allows us to define schemas that we situate for our queries. To start, we need to populate the database with some data as such:
+For structuring the functionality we would like for our classified ads, the typical CRUD functionality is set up as mutations in GraphQL. It allows us to define schemas that we situate for our queries. To start, we need to populate the database with some data as such:
 
 ```
 mutation CreateNewAdvertisement{ 
@@ -41,20 +43,43 @@ query{ allAdvertisements (sort: 0) { createdAt } }
 query{ allAdvertisements (sort: 1) { price } }
 ```
 
-We can also filter by different fields, such as ID:
+We can also filter by different fields with our ID:
 
 ```
 query{ advertisementById(advertisementId:2){ id subject body } }
 
 ```
 
-For deleting any classified ads, I created another mutation that removes them by ID:
+For updating any classified ads:
+
+```
+mutation UpdateAdvertisement{ 
+  updateAdvertisement(advertisementId:3, subject:"UpdatedPromotional") { ok } }
+```
+
+For deleting any classified ads:
 
 ```
 mutation DeleteAdvertisement{ 
   deleteAdvertisement(advertisementId:2) { ok } }
 ```
 
+## Testing 
+
+To run unit tests for the models, queries, and mutations from the base directory:
+
+```
+pytest
+```
+
+A coverage report is included in the testing.
+
 ## Conclusion
 
-This exercise gave me some experience to work with GraphQL. For a simple API that we can use for classified ads, this one should suffice. The flexibility of the schema for the client and the central fast, query structure make GraphQL a reasonable alternative to REST. One area where I believe GraphQL would prove quite advantageous would be as an entrypoint for a microservice cluster.  
+This exercise gave me some experience to work with GraphQL. For a simple API that we can use for classified ads, this one should suffice. The flexibility of the schema for the client and the central fast, query structure make GraphQL a reasonable alternative to REST. It further allows one to modularize the data so that a client can receive sections of the data with larger queries. One area where I believe GraphQL would prove quite advantageous would be as an entrypoint for a microservice cluster. 
+
+### References
+
+- https://graphql.org/
+- https://docs.graphene-python.org/en/latest/
+- https://fastapi.tiangolo.com/advanced/graphql/
