@@ -1,29 +1,35 @@
+import pytest
 from graphene.test import Client
 from unittest import TestCase
 from mixer.backend.sqlalchemy import mixer
 
-from schemas import AdvertisementSchema
+from main import schema
 
 
+@pytest.mark.skip
 class TestQuery(TestCase):
     def setUp(self):
         self.advertisement = mixer.blend("models.Advertisement")
-        self.client = Client(AdvertisementSchema)
+        self.client = Client(schema)
 
     def test_all_advertisements_sort_0(self):
-        executed = self.client.execute('''query { allAdvertisements }''', context={'created_at'})
-        advertisements = executed.get("data").get("advertisements")
+        executed = self.client.execute('''query{ allAdvertisements }''',
+                                       variables={'sort': 0},
+                                       context={'createdAt'})
+        advertisements = executed.get("data").get("allAdvertisements")
         assert len(advertisements)
 
     def test_all_advertisements_sort_1(self):
-        executed = self.client.execute('''query { allAdvertisements }''', context={'price'})
-        advertisements = executed.get("data").get("advertisements")
+        executed = self.client.execute('''query{ allAdvertisements }''',
+                                       variables={'sort': 1},
+                                       context={'price'})
+        advertisements = executed.get("data").get("allAdvertisements")
         assert len(advertisements)
 
     def test_all_advertisements(self):
-        executed = self.client.execute('''query { allAdvertisements }''')
+        executed = self.client.execute('''query { allAdvertisements }''',
+                                       context={'id'})
         advertisements = executed.get("data").get("allAdvertisements")
-        print(advertisements)
         assert len(advertisements)
 
     def test_advertisements_by_id(self):
