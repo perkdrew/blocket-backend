@@ -71,7 +71,7 @@ To run unit tests for the models from the base directory:
 pytest
 ```
 
-A coverage report is included in the testing. For testing queries and mutations, a test, or mock, database connection would need to be implemented with SQLAlchemy and Postgres. As of now, they are being skipped.
+A coverage report is included in the testing. For testing queries and mutations, a test or mock database connection would need to be implemented with SQLAlchemy and Postgres. As of now, they are being skipped.
 
 ## Conclusion
 
