@@ -7,4 +7,6 @@ from queries import Query
 
 app = FastAPI()
 
-app.add_route("/", GraphQLApp(schema=graphene.Schema(mutation=AdvertisementMutations, query=Query)))
+schema = graphene.Schema(mutation=AdvertisementMutations, query=Query)
+
+app.add_route("/", GraphQLApp(schema=schema))
